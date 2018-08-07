@@ -1,7 +1,6 @@
 package fcm.androidtoandroid.connection
 
 import android.os.AsyncTask
-import fcm.androidtoandroid.FirebasePush
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
