@@ -6,7 +6,7 @@ version="1.0"
 
 android {
     compileSdkVersion 27
-
+    kapt {generateStubs = true}
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 27
