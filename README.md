@@ -13,7 +13,7 @@ Download via gradle:
 In file build.gradle (Module: app) :
 ```css
 dependencies {
-	        implementation 'com.github.DavidBarbaran:fcm-android-to-android:1.0'
+    implementation 'com.github.DavidBarbaran:fcm-android-to-android:1.0'
 }
 ```
 
