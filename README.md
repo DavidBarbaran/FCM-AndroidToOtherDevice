@@ -11,9 +11,9 @@ Send notifications from your android to other devices
 Download via gradle:
 
 In file build.gradle (Module: app) :
-```css
+```groovy
 dependencies {
-    implementation 'com.github.DavidBarbaran:fcm-android-to-android:1.0'
+        implementation 'com.github.DavidBarbaran:fcm-android-to-android:1.0'
 }
 ```
 
