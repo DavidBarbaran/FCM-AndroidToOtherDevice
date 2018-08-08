@@ -46,7 +46,7 @@ class PushNotificationTask(private var conn: HttpURLConnection,
             return builder.toString()
         } catch (e: Exception) {
             Log.e("PushNotification", e.message, e)
-            return e.message!!
+            return "Error in post to ${e.message}"
         } finally {
             if (wr != null) wr.close()
             if (br != null) br.close()
