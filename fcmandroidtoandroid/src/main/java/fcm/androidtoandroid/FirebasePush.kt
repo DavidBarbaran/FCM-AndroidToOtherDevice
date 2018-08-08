@@ -19,7 +19,7 @@ class FirebasePush constructor(val serverKey: String) : PushService {
     private var root: JSONObject = JSONObject()
     var asyncResponse: PushNotificationTask.AsyncResponse? = null
 
-    override fun sendToTopic(topic: String) {
+    fun sendToTopic(topic: String) {
         root.put("notification", notification.toJSONObject())
         root.put("data", data)
         root.put("condition", "'$topic' in topics")

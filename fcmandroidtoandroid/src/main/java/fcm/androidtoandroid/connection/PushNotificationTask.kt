@@ -21,6 +21,7 @@ class PushNotificationTask(private var conn: HttpURLConnection,
         var wr: OutputStreamWriter? = null
         var br: BufferedReader? = null
         try {
+
             wr = OutputStreamWriter(conn.outputStream)
             wr.write(root.toString())
             wr.flush()
