@@ -1,6 +1,7 @@
 package fcm.androidtoandroid.connection
 
 import android.os.AsyncTask
+import android.util.Log
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -39,16 +40,17 @@ class PushNotificationTask(private var conn: HttpURLConnection,
 
             if (toTopic) {
                 if (obj.has("message_id")) {
-                    return "SUCCESS"
+                    return "SUCCESS1"
                 }
             } else {
                 val success = Integer.parseInt(obj.getString("success"))
                 if (success > 0) {
-                    return "SUCCESS"
+                    return "SUCCESS2"
                 }
             }
             return builder.toString()
         } catch (e: Exception) {
+            Log.e(javaClass.simpleName, e.message, e)
             return e.message!!
         } finally {
             if (wr != null) wr.close()
