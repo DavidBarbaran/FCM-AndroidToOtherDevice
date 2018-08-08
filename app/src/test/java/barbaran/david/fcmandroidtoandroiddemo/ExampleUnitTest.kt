@@ -1,7 +1,6 @@
 package barbaran.david.fcmandroidtoandroiddemo
 
 import org.junit.Test
-
 import org.junit.Assert.*
 
 /**

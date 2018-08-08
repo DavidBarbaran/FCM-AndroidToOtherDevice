@@ -4,7 +4,6 @@ import android.os.AsyncTask
 import android.util.Log
 import org.json.JSONObject
 import java.io.BufferedReader
-import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 
@@ -21,37 +20,32 @@ class PushNotificationTask(private var conn: HttpURLConnection,
         var wr: OutputStreamWriter? = null
         var br: BufferedReader? = null
         try {
-
             wr = OutputStreamWriter(conn.outputStream)
             wr.write(root.toString())
             wr.flush()
 
-            br = BufferedReader(InputStreamReader(conn.inputStream))
-
             val builder = StringBuilder()
 
-            BufferedReader(br).use { r ->
-                r.lineSequence().forEach {
-                    builder.append(it)
-                }
+            conn.inputStream.bufferedReader().use { reader ->
+                builder.append(reader.readLine())
             }
 
-            val result = builder.toString()
+            var result = builder.toString()
             val obj = JSONObject(result)
 
             if (toTopic) {
                 if (obj.has("message_id")) {
-                    return "SUCCESS1"
+                    return "SUCCESS"
                 }
             } else {
                 val success = Integer.parseInt(obj.getString("success"))
                 if (success > 0) {
-                    return "SUCCESS2"
+                    return "SUCCESS"
                 }
             }
             return builder.toString()
         } catch (e: Exception) {
-            Log.e(javaClass.simpleName, e.message, e)
+            Log.e("PushNotification", e.message, e)
             return e.message!!
         } finally {
             if (wr != null) wr.close()
