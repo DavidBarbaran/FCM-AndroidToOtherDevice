@@ -85,7 +85,7 @@ firebasePush.sendToGroup(jsonArray);
 
 Advanced use of Notification:
 ```kotlin
-val notification = Notification("title", "body","icon", "sound.pm3","SplashActivity")  
+val notification = Notification("title", "body","icon", "sound.mp3","SplashActivity")  
 // or
 val notification = Notification()  
 notification.title = "title"  
