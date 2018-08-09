@@ -1,8 +1,8 @@
-# Firebase Cloud Messaging Android to android
-
-<img src="https://i.pinimg.com/originals/13/7e/ba/137eba682a73749a60c58c95ae6347f8.png" width="100%"/>
+# Firebase Cloud Messaging Android to other devices
 
 Send notifications from your android to other devices
+
+<img src="https://i.pinimg.com/originals/13/7e/ba/137eba682a73749a60c58c95ae6347f8.png" width="100%"/>
 
 * User segment
 * Topic
@@ -13,7 +13,7 @@ Download via gradle:
 In file build.gradle (Module: app) :
 ```groovy
 dependencies {
-        implementation 'com.github.DavidBarbaran:fcm-android-to-android:1.0'
+    implementation 'com.github.DavidBarbaran:fcm-android-to-android:1.0'
 }
 ```
 
