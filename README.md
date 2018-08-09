@@ -1,8 +1,8 @@
 # Firebase Cloud Messaging Android to other devices
 
-Send notifications from your android to other devices
-
 <img src="https://i.pinimg.com/originals/13/7e/ba/137eba682a73749a60c58c95ae6347f8.png" width="100%"/>
+
+Send notifications from your android to other devices
 
 * User segment
 * Topic
