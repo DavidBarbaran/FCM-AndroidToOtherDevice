@@ -39,7 +39,7 @@ firebasePush.sendToTopic("news")
 
 #### Other usages:
 
-* Using in kotlin:
+* Using in Kotlin:
 ```kotlin
 val firebasePush = FirebasePush("LEGACY_SERVER_KEY")  
 firebasePush.asyncResponse = object : PushNotificationTask.AsyncResponse{  
