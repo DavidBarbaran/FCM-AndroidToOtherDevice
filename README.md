@@ -30,6 +30,15 @@ allprojects {
 
 [How to get legacy server key?](https://github.com/DavidBarbaran/FCM-AndroidToOtherDevice/wiki/How-to-get-legacy-server-key)
 
+#### Basic Usage:
+```kotlin
+val firebasePush = FirebasePush("LEGACY_SERVER_KEY")  
+firebasePush.notification = Notification("title","body")
+firebasePush.sendToTopic("news")
+```
+
+#### Other usages:
+
 Using in kotlin:
 ```kotlin
 val firebasePush = FirebasePush("LEGACY_SERVER_KEY")  
@@ -51,7 +60,7 @@ jsonArray.put("firebaseTokenId3")
 firebasePush.sendToGroup(jsonArray)
 ```
 
-Using in Java:
+* Using in Java:
 ```java
 FirebasePush firebasePush = new FirebasePush("LEGACY_SERVER_KEY"); 
 firebasePush.setAsyncResponse(new PushNotificationTask.AsyncResponse() {
