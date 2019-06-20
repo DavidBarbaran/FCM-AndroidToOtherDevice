@@ -68,18 +68,18 @@ class Notification {
     }
 
     fun toJSONObject(): JSONObject {
-        val data = JSONObject()
-        data.put("title", title)
-        data.put("body", body)
-        data.put("icon", icon)
-        data.put("sound", sound)
-        data.put("tag", tag)
-        data.put("color", color)
-        data.put("click_action", clickAction)
-        data.put("body_loc_key", bodyLocalizationKey)
-        data.put("body_loc_args", bodyLocalizationArgs)
-        data.put("title_loc_key", titleLocalizationKey)
-        data.put("title_loc_args", titleLocalizationArgs)
-        return data
+        return JSONObject().apply {
+            put("title", title)
+            put("body", body)
+            put("icon", icon)
+            put("sound", sound)
+            put("tag", tag)
+            put("color", color)
+            put("click_action", clickAction)
+            put("body_loc_key", bodyLocalizationKey)
+            put("body_loc_args", bodyLocalizationArgs)
+            put("title_loc_key", titleLocalizationKey)
+            put("title_loc_args", titleLocalizationArgs)
+        }
     }
 }

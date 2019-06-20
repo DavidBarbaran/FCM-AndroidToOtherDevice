@@ -13,16 +13,16 @@ Download via gradle:
 In file build.gradle (Module: app) :
 ```groovy
 dependencies {
-	implementation 'com.github.DavidBarbaran:FCM-AndroidToOtherDevice:1.0'
+   implementation 'com.github.DavidBarbaran:FCM-AndroidToOtherDevice:1.1'
 }
 ```
 
 and in the file build.gradle (Project) :
 ```groovy
 allprojects {
-	repositories {
-		maven { url 'https://jitpack.io' }
-	}
+   repositories {
+      maven { url 'https://jitpack.io' }
+   }
 }
 ```
 
@@ -32,28 +32,42 @@ allprojects {
 
 #### Basic Usage:
 ```kotlin
-val firebasePush = FirebasePush("LEGACY_SERVER_KEY")  
-firebasePush.notification = Notification("title","body")
-firebasePush.sendToTopic("news")
+FirebasePush.build("LEGACY_SERVER_KEY")
+        .setNotification(Notification("FCM-AndroidToOtherDevice", "This is a body"))
+        .sendToTopic("news")
 ```
 
 #### Other usages:
 
 * Using in Kotlin:
+
+**FCM-AndroidToOtherDevice 1.1:**
 ```kotlin
-val firebasePush = FirebasePush("LEGACY_SERVER_KEY")  
-firebasePush.asyncResponse = object : PushNotificationTask.AsyncResponse{  
-    override fun onFinishPush(ouput: String) {  
-        Log.e("OUTPUT", ouput)  
-    }  
-}  
+val notification = Notification("FCM-AndroidToOtherDevice", "This is a body")
+
+val yourExtraData = JSONObject().put("key", "name")
+
+FirebasePush.build("LEGACY_SERVER_KEY")
+        .setNotification(notification)
+        .setData(yourExtraData)
+        .setOnFinishPush { onFinishPush() }
+        .sendToTopic("YOUR_TOPIC")
+```
+**FCM-AndroidToOtherDevice 1.0:**
+```kotlin
+val firebasePush = FirebasePush("LEGACY_SERVER_KEY")
+firebasePush.asyncResponse = object : PushNotificationTask.AsyncResponse{
+        override fun onFinishPush(ouput: String) {
+            Log.e("OUTPUT", ouput)
+        }
+    }
 firebasePush.notification = Notification("title","body")
 // Send to topic
 firebasePush.sendToTopic("news")
 // or send to token
 firebasePush.sendToToken("firebaseTokenId")
 // or send to user segment
-val jsonArray = JSONArray();  
+val jsonArray = JSONArray();
 jsonArray.put("firebaseTokenId1")
 jsonArray.put("firebaseTokenId2")
 jsonArray.put("firebaseTokenId3")
@@ -62,12 +76,12 @@ firebasePush.sendToGroup(jsonArray)
 
 * Using in Java:
 ```java
-FirebasePush firebasePush = new FirebasePush("LEGACY_SERVER_KEY"); 
+FirebasePush firebasePush = new FirebasePush("LEGACY_SERVER_KEY");
 firebasePush.setAsyncResponse(new PushNotificationTask.AsyncResponse() {
-	@Override  
-	public void onFinishPush(@NotNull String ouput) {  
+   @Override
+   public void onFinishPush(@NotNull String ouput) {
           Log.e("OUTPUT", ouput);
-    }  
+    }
 });
 firebasePush.setNotification(new Notification("title","body"));
 
@@ -76,33 +90,25 @@ firebasePush.sendToTopic("news");
 // or send to token
 firebasePush.sendToToken("firebaseTokenId");
 // or send to user segment
-JSONArray jsonArray = new JSONArray();  
-jsonArray.put("firebaseTokenId1");  
-jsonArray.put("firebaseTokenId2");  
-jsonArray.put("firebaseTokenId3");  
+JSONArray jsonArray = new JSONArray();
+jsonArray.put("firebaseTokenId1");
+jsonArray.put("firebaseTokenId2");
+jsonArray.put("firebaseTokenId3");
 firebasePush.sendToGroup(jsonArray);
 ```
 
 Advanced use of Notification:
 ```kotlin
-val notification = Notification("title", "body","icon", "sound.mp3","SplashActivity")  
+val notification = Notification("title", "body","icon", "sound.mp3","SplashActivity")
 // or
-val notification = Notification()  
-notification.title = "title"  
-notification.body = "body"  
-notification.icon = "icon"  
-notification.sound = "sound.mp3"  
-notification.clickAction = "SplashActivity"  
-notification.color = "#000000"  
-notification.tag = "youtTag"  
-notification.bodyLocalizationKey = "bodyLocalizationKey"  
+val notification = Notification()
+notification.title = "title"
+notification.body = "body"
+notification.icon = "icon"
+notification.sound = "sound.mp3"
+notification.clickAction = "SplashActivity"
+notification.color = "#000000"
+notification.tag = "youtTag"
+notification.bodyLocalizationKey = "bodyLocalizationKey"
 notification.titleLocalizationKey = "titleLocalizationKey"
-```
-
-Use of Data:
-```kotlin
-val firebasePush =  FirebasePush("LEGACY_SERVER_KEY")
-val data = JSONObject()  
-data.put("key", "value")  
-firebasePush.data = data
 ```
