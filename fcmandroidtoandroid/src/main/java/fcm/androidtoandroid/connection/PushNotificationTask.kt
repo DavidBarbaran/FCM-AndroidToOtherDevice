@@ -3,7 +3,6 @@ package fcm.androidtoandroid.connection
 import android.os.AsyncTask
 import android.util.Log
 import org.json.JSONObject
-import java.io.BufferedReader
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 
@@ -18,7 +17,6 @@ class PushNotificationTask(private var conn: HttpURLConnection,
 
     override fun doInBackground(vararg p0: Void?): String {
         var wr: OutputStreamWriter? = null
-        var br: BufferedReader? = null
         try {
             wr = OutputStreamWriter(conn.outputStream)
             wr.write(root.toString())
@@ -30,7 +28,7 @@ class PushNotificationTask(private var conn: HttpURLConnection,
                 builder.append(reader.readLine())
             }
 
-            var result = builder.toString()
+            val result = builder.toString()
             val obj = JSONObject(result)
 
             if (toTopic) {
@@ -48,8 +46,7 @@ class PushNotificationTask(private var conn: HttpURLConnection,
             Log.e("PushNotification", e.message, e)
             return "Error in post to ${e.message}"
         } finally {
-            if (wr != null) wr.close()
-            if (br != null) br.close()
+            wr?.close()
         }
     }
 
