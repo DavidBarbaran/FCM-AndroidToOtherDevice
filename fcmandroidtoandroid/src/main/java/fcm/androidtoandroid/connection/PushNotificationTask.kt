@@ -53,7 +53,9 @@ class PushNotificationTask(private var conn: HttpURLConnection,
     override fun onPostExecute(result: String?) {
         super.onPostExecute(result)
         if (asyncResponse != null) {
-            asyncResponse?.onFinishPush(result!!)
+            result?.let {
+                asyncResponse?.onFinishPush(it)
+            }
         }
     }
 

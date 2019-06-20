@@ -16,7 +16,16 @@ import java.net.URL
 class FirebasePush constructor(private val serverKey: String) : PushService {
 
     companion object {
+        /** FCM **/
         private const val API_URL_FCM = "https://fcm.googleapis.com/fcm/send"
+
+        /** Request method **/
+        private const val POST = "POST"
+
+        /** Properties keys **/
+        private const val CONTENT_TYPE = "Content-Type"
+        private const val ACCEPT = "Accept"
+        private const val AUTHORIZATION = "Authorization"
     }
 
     var notification: Notification = Notification()
@@ -45,11 +54,11 @@ class FirebasePush constructor(private val serverKey: String) : PushService {
             useCaches = false
             doInput = true
             doOutput = true
-            requestMethod = "POST"
+            requestMethod = POST
 
-            setRequestProperty("Content-Type", "application/json")
-            setRequestProperty("Accept", "application/json")
-            setRequestProperty("Authorization", "key=$serverKey")
+            setRequestProperty(CONTENT_TYPE, "application/json")
+            setRequestProperty(ACCEPT, "application/json")
+            setRequestProperty(AUTHORIZATION, "key=$serverKey")
 
             root.put("notification", notification.toJSONObject())
             root.put("data", data)
