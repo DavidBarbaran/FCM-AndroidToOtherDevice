@@ -68,7 +68,7 @@ class Notification {
     }
 
     fun toJSONObject(): JSONObject {
-        val data = JSONObject().apply {
+        return JSONObject().apply {
             put("title", title)
             put("body", body)
             put("icon", icon)
@@ -81,6 +81,5 @@ class Notification {
             put("title_loc_key", titleLocalizationKey)
             put("title_loc_args", titleLocalizationArgs)
         }
-        return data
     }
 }

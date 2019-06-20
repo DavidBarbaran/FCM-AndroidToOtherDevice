@@ -1,8 +1,8 @@
 package fcm.androidtoandroid
 
-import fcm.androidtoandroid.config.SendType.TO_GROUP
-import fcm.androidtoandroid.config.SendType.TO_TOKEN
-import fcm.androidtoandroid.config.SendType.TO_TOPIC
+import fcm.androidtoandroid.config.PushType.TO_GROUP
+import fcm.androidtoandroid.config.PushType.TO_TOKEN
+import fcm.androidtoandroid.config.PushType.TO_TOPIC
 import fcm.androidtoandroid.connection.PushNotificationTask
 import fcm.androidtoandroid.model.Notification
 import org.json.JSONArray
@@ -13,11 +13,9 @@ import java.net.URL
 /**
  * Created by David on 3/08/2018.
  */
-class FirebasePush constructor(private val serverKey: String) : PushService {
+class FirebasePush constructor(private val serverKey: String) : PushService, FirebasePushBuilder {
 
     companion object {
-        /** FCM **/
-        private const val API_URL_FCM = "https://fcm.googleapis.com/fcm/send"
 
         /** Request method **/
         private const val POST = "POST"
@@ -26,6 +24,19 @@ class FirebasePush constructor(private val serverKey: String) : PushService {
         private const val CONTENT_TYPE = "Content-Type"
         private const val ACCEPT = "Accept"
         private const val AUTHORIZATION = "Authorization"
+
+        /** Properties values **/
+        private const val APPLICATION_JSON = "application/json"
+
+        /** Root keys **/
+        private const val NOTIFICATION = "notification"
+        private const val DATA = "data"
+
+        /** Build method **/
+        fun build(serverKey: String) = FirebasePush(serverKey)
+
+        /** FCM **/
+        private const val API_URL_FCM = "https://fcm.googleapis.com/fcm/send"
     }
 
     var notification: Notification = Notification()
@@ -48,24 +59,44 @@ class FirebasePush constructor(private val serverKey: String) : PushService {
         sendPushNotification(false)
     }
 
-    private fun sendPushNotification(toTopic: Boolean) {
-        with(URL(API_URL_FCM).openConnection() as HttpURLConnection) {
+    override fun setNotification(notification: Notification) = apply {
+        this.notification = notification
+    }
 
+    override fun setData(data: JSONObject) = apply {
+        this.data = data
+    }
+
+    override fun setOnFinishPush(asyncResponse: PushNotificationTask.AsyncResponse) = apply {
+        this.asyncResponse = asyncResponse
+    }
+
+    override fun setOnFinishPush(onFinishPush: () -> Unit) = apply {
+        this.asyncResponse = object : PushNotificationTask.AsyncResponse {
+            override fun onFinishPush(ouput: String) {
+                onFinishPush()
+            }
+        }
+    }
+
+    private fun sendPushNotification(toTopic: Boolean) {
+        val conn = URL(API_URL_FCM).openConnection() as HttpURLConnection
+        conn.apply {
             useCaches = false
             doInput = true
             doOutput = true
             requestMethod = POST
 
-            setRequestProperty(CONTENT_TYPE, "application/json")
-            setRequestProperty(ACCEPT, "application/json")
+            setRequestProperty(CONTENT_TYPE, APPLICATION_JSON)
+            setRequestProperty(ACCEPT, APPLICATION_JSON)
             setRequestProperty(AUTHORIZATION, "key=$serverKey")
-
-            root.put("notification", notification.toJSONObject())
-            root.put("data", data)
-
-            val pushNotificationTask = PushNotificationTask(this, root, toTopic)
-            pushNotificationTask.asyncResponse = asyncResponse
-            pushNotificationTask.execute()
         }
+
+        root.put(NOTIFICATION, notification.toJSONObject())
+        root.put(DATA, data)
+
+        val pushNotificationTask = PushNotificationTask(conn, root, toTopic)
+        pushNotificationTask.asyncResponse = asyncResponse
+        pushNotificationTask.execute()
     }
 }
