@@ -40,6 +40,8 @@ class FirebasePush constructor(private val serverKey: String) : PushService, Fir
     }
 
     var notification: Notification = Notification()
+        private set
+
     var data = JSONObject()
     private var root: JSONObject = JSONObject()
     var asyncResponse: PushNotificationTask.AsyncResponse? = null
