@@ -7,7 +7,7 @@ import fcm.androidtoandroid.model.Notification
 
 class MainActivity : AppCompatActivity() {
 
-    private val serverKey = "your_legacy_server_key"
+    private val serverKey = "your_firebase_server_key"
     private val topic = "your_topic"
 
     override fun onCreate(savedInstanceState: Bundle?) {
