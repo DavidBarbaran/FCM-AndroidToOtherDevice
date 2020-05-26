@@ -14,7 +14,7 @@ Download via gradle:
 In file build.gradle (Module: app) :  
 ```groovy  
 dependencies {  
-   implementation 'com.github.DavidBarbaran:FCM-AndroidToOtherDevice:1.1.1'  
+   implementation 'com.github.DavidBarbaran:FCM-AndroidToOtherDevice:1.1.2'
 }  
 ```  
   
@@ -29,11 +29,11 @@ allprojects {
   
 ### Usage of FCM Android to android:  
   
-[How to get legacy server key?](https://github.com/DavidBarbaran/FCM-AndroidToOtherDevice/wiki/How-to-get-legacy-server-key)  
+[How to get firebase server key?](https://github.com/DavidBarbaran/FCM-AndroidToOtherDevice/wiki/How-to-get-the-firebase-server-key)
   
 #### Basic Usage:  
 ```kotlin  
-FirebasePush.build("LEGACY_SERVER_KEY")  
+FirebasePush.build("SERVER_KEY")
         .setNotification(Notification("FCM-AndroidToOtherDevice", "This is a body"))  
         .sendToTopic("news")  
 ```  
@@ -48,7 +48,7 @@ val notification = Notification("FCM-AndroidToOtherDevice", "This is a body")
   
 val yourExtraData = JSONObject().put("key", "name")  
   
-val firebasePush = FirebasePush.build("LEGACY_SERVER_KEY")  
+val firebasePush = FirebasePush.build("SERVER_KEY")
         .setNotification(notification)  
         .setData(yourExtraData)  
         .setOnFinishPush { onFinishPush() }  
@@ -67,7 +67,7 @@ firebasePush.sendToGroup(jsonArray)
   
 * Using in Java:  
 ```java  
-FirebasePush firebasePush = new FirebasePush("LEGACY_SERVER_KEY");  
+FirebasePush firebasePush = new FirebasePush("SERVER_KEY");
 firebasePush.setAsyncResponse(new PushNotificationTask.AsyncResponse() {  
    @Override  
    public void onFinishPush(@NotNull String ouput) {  
